@@ -1101,6 +1101,7 @@ public class GT_Loader_MetaTileEntities implements Runnable {
         GT_ModHandler.addCraftingRecipe(ItemList.Machine_ZPM_OrganicReplicator.get(1L),bitsd,new Object[]{"CRC","WFW","CMC",'M',ItemList.Hull_ZPM,'R',Ic2Items.crop,'C',OrePrefixes.circuit.get(Materials.Ultimate),'F',ItemList.Field_Generator_ZPM,'W',OrePrefixes.cableGt01.get(Materials.Naquadah)});
         GT_ModHandler.addCraftingRecipe(ItemList.Machine_UV_OrganicReplicator.get(1L),bitsd,new Object[]{"CRC","WFW","CMC",'M',ItemList.Hull_UV,'R',Ic2Items.crop,'C',OrePrefixes.circuit.get(Materials.Superconductor),'F',ItemList.Field_Generator_UV,'W',OrePrefixes.cableGt01.get(Materials.NaquadahAlloy)});
 
+        ItemList.Machine_UV_GuideRenderer.set(new GT_MetaTileEntity_HolographicProjector(689,"basicmachine.guiderenderer.tier.08","Holographic projector",8).getStackForm(1L));
 
     }
 
@@ -1363,6 +1364,28 @@ public class GT_Loader_MetaTileEntities implements Runnable {
         ItemList.Machine_DigitalTransformer_MAX.set(new GT_MetaTileEntity_Digital_Transformer(12188, "basicmachine.d_transformer.tier.09", "MAX Adjustable Transformer", 9,"ULV -> MAX (Use Soft Mallet to invert)").getStackForm(1L));
 
         ItemList.Machine_Well.set(new GT_MetaTileEntity_Well(12189, "basicmachine.well", "Well", 0).getStackForm(1));
+
+        ItemList.HugeBoilerBronze.set(new GT_MetaTileEntity_HugeBoiler_Bronze(12190,"multibachine.hugebolier.bronze", "Huge Bronze Boiler").getStackForm(1L));
+        ItemList.HugeBoilerSteel.set(new GT_MetaTileEntity_HugeBoiler_Steel(12191,"multibachine.hugebolier.steel", "Huge Steel Boiler").getStackForm(1L));
+        ItemList.HugeBoilerTitanium.set(new GT_MetaTileEntity_HugeBoiler_Titanium(12192,"multibachine.hugebolier.titanium", "Huge Titanium Boiler").getStackForm(1L));
+        ItemList.HugeBoilerTungstensteel.set(new GT_MetaTileEntity_HugeBoiler_TungstenSteel(12193,"multibachine.hugebolier.tungstensteel", "Huge Tungstensteel Boiler").getStackForm(1L));
+        ItemList.HugeBoilerHSSG.set(new GT_MetaTileEntity_HugeHPBoiler_HSSG(12194,"multibachine.hugebolier.hssg", "Huge High Pressure HSSG Boiler").getStackForm(1L));
+
+        ItemList.HugeTurbineSteam.set(new GT_MetaTileEntity_HugeTurbine_Steam(12195,"multimachine.hugeturbine.steam", "Huge Steam Turbine").getStackForm(1L));
+        ItemList.HugeTurbineGas.set(new GT_MetaTileEntity_HugeTurbine_Gas(12196,"multimachine.hugeturbine.gas", "Huge Gas Turbine").getStackForm(1L));
+        ItemList.HugeTurbineHPSteam.set(new GT_MetaTileEntity_HugeTurbine_HPSteam(12197,"multimachine.hugeturbine.hpsteam", "Huge HPSteam Turbine").getStackForm(1L));
+        ItemList.HugeTurbinePlasma.set(new GT_MetaTileEntity_HugeTurbine_Plasma(12198,"multimachine.hugeturbine.plasma", "Huge Plasma Turbine").getStackForm(1L));
+
+        ItemList.HugeImplosionCompressor.set(new GT_MetaTileEntity_HugeImplosionCompressor(12199,"multimachine.hugecompressor", "Huge Implosion Compressor").getStackForm(1L));
+
+        ItemList.LargeResearchStation.set(new GT_MetaTileEntity_LargeResearchStation1(12200,"multimachine.researchstation.tier.01","Large research station 1").getStackForm(1L));
+        ItemList.Computer.set(new GT_MetaTileEntity_Computer1(12201,"multimachine.computer.tier.01","Computer 1").getStackForm(1L));
+        ItemList.ComputerTerminal.set(new GT_MetaTileEntity_ComputerTerminal(12202,"basicmachine.computerterminal", "Computer Terminal", 8).getStackForm(1L));
+        ItemList.Hatch_Circuit_Acess.set(new GT_MetaTileEntity_Hatch_CircuitAccess(12203,"hatch.circuity","Circuit access hatch",1).getStackForm(1L));
+        ItemList.Hatch_Data_Input.set(new GT_MetaTileEntity_Hatch_Data(12204,"hatch.data","Data Hatch", 1).getStackForm(1L));
+        GT_OreDictUnificator.registerOre(OrePrefixes.wireGt01, Materials.Aluminium, new GT_MetaPipeEntity_DataCable(12205, aTextWire1 + "aluminium" + ".01", "1x " +"Data" + aTextWire2, 0.4F, Materials.Aluminium, 2, 1000, false).getStackForm(1L));
+        ItemList.DataSystemController.set(new GT_MetaTileEntity_DataSystemController(12206,"machine.datasystemcontroller","Data System Controller",1).getStackForm(1L));
+
     }
 
     private static void run4() {

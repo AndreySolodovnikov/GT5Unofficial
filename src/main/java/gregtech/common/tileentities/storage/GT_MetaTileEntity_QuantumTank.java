@@ -6,6 +6,7 @@ import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicTank;
 import gregtech.api.objects.GT_RenderedTexture;
+import gregtech.api.util.GT_Utility;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -13,6 +14,8 @@ import java.text.NumberFormat;
 
 public class GT_MetaTileEntity_QuantumTank
         extends GT_MetaTileEntity_BasicTank {
+
+    public boolean mCheatMode = false;
     public GT_MetaTileEntity_QuantumTank(int aID, String aName, String aNameRegional, int aTier) {
         super(aID, aName, aNameRegional, aTier, 3, "Stores " + NumberFormat.getNumberInstance().format((int) (Math.pow(6, aTier) * 267000)) + "L of fluid");
     }
@@ -37,6 +40,7 @@ public class GT_MetaTileEntity_QuantumTank
 
     @Override
     public void saveNBTData(NBTTagCompound aNBT) {
+        aNBT.setBoolean("mCheat", mCheatMode);
         super.saveNBTData(aNBT);
     }
 
@@ -64,6 +68,7 @@ public class GT_MetaTileEntity_QuantumTank
 
     @Override
     public void loadNBTData(NBTTagCompound aNBT) {
+        mCheatMode = aNBT.getBoolean("mCheat");
         super.loadNBTData(aNBT);
     }
 
@@ -100,6 +105,13 @@ public class GT_MetaTileEntity_QuantumTank
     @Override
     public boolean displaysStackSize() {
         return false;
+    }
+
+    @Override
+    public void onPreTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick) {
+        if(mCheatMode&&mFluid!=null)
+            mFluid.amount = 1000000;
+        super.onPreTick(aBaseMetaTileEntity, aTick);
     }
 
     @Override
@@ -140,5 +152,15 @@ public class GT_MetaTileEntity_QuantumTank
     public int getTankPressure() {
         return 100;
     }
+
+    @Override
+    public void onScrewdriverRightClick(byte aSide, EntityPlayer aPlayer, float aX, float aY, float aZ) {
+        if(aPlayer.capabilities.isCreativeMode&&aPlayer.isSneaking()) {
+            mCheatMode = !mCheatMode;
+            GT_Utility.sendChatToPlayer(aPlayer,"Cheat mode is "+(mCheatMode?"Enabled":"Disabled"));
+        }
+        super.onScrewdriverRightClick(aSide, aPlayer, aX, aY, aZ);
+    }
+
 
 }
