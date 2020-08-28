@@ -3034,6 +3034,7 @@ if(Loader.isModLoaded("Railcraft")){
 
         GT_Values.RA.addChemicalRecipe(Materials.Epichlorohydrin.getCells(1), Materials.SodiumHydroxide.getDust(1), Materials.Water.getFluid(1000), GT_Values.NF, Materials.Glycerol.getCells(1), Materials.Salt.getDust(1), 600, 10);
 
+
         GT_Values.RA.addChemicalRecipe(                   Materials.Water.getCells(3),           GT_Utility.getIntegratedCircuit(1),  Materials.NitrogenDioxide.getGas(9000), Materials.NitricAcid.getFluid(10000), Materials.NitricOxide.getCells(2), Materials.Empty.getCells(1), 240);
         GT_Values.RA.addChemicalRecipe(                   Materials.NitrogenDioxide.getCells(9), GT_Utility.getIntegratedCircuit(1),  Materials.Water.getFluid(3000),         Materials.NitricAcid.getFluid(10000), Materials.NitricOxide.getCells(2), Materials.Empty.getCells(7), 240);
         GT_Values.RA.addChemicalRecipeForBasicMachineOnly(Materials.Water.getCells(3),           Materials.Empty.getCells(7),         Materials.NitrogenDioxide.getGas(9000), Materials.NitricOxide.getGas(2000),   Materials.NitricAcid.getCells(10), GT_Values.NI, 240, 30);
