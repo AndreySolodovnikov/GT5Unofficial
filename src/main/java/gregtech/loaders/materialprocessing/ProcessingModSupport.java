@@ -7,17 +7,17 @@ import gregtech.api.enums.OrePrefixes;
 
 public class ProcessingModSupport implements gregtech.api.interfaces.IMaterialHandler {
     public static boolean aTGregSupport = Loader.isModLoaded("TGregworks");
-    public static boolean aEnablePFAAMats = Loader.isModLoaded("PFAAGeologica") || aTGregSupport;
-    public static boolean aEnableUBCMats = Loader.isModLoaded("UndergroundBiomes") || aTGregSupport;
-    public static boolean aEnableThaumcraftMats = Loader.isModLoaded("Thaumcraft") || aTGregSupport;
-    public static boolean aEnableRotaryCraftMats = Loader.isModLoaded("RotaryCraft") || aTGregSupport;
-    public static boolean aEnableThermalFoundationMats = Loader.isModLoaded("ThermalFoundation") || aTGregSupport;
-    public static boolean aEnableEnderIOMats = Loader.isModLoaded("EnderIO") || aTGregSupport;
-    public static boolean aEnableRailcraftMats = Loader.isModLoaded(GT_Values.MOD_ID_RC) || aTGregSupport;
-    public static boolean aEnableGCMarsMats = Loader.isModLoaded("GalacticraftMars") || aTGregSupport;
-    public static boolean aEnableTwilightMats = Loader.isModLoaded(GT_Values.MOD_ID_TF) || aTGregSupport;
-    public static boolean aEnableMetallurgyMats = Loader.isModLoaded("Metallurgy") || aTGregSupport;
-    public static boolean aEnableIHLMats = Loader.isModLoaded("ihl") || aTGregSupport;
+    public static boolean aEnablePFAAMats = Loader.isModLoaded("PFAAGeologica");
+    public static boolean aEnableUBCMats = Loader.isModLoaded("UndergroundBiomes");
+    public static boolean aEnableThaumcraftMats = Loader.isModLoaded("Thaumcraft");
+    public static boolean aEnableRotaryCraftMats = Loader.isModLoaded("RotaryCraft");
+    public static boolean aEnableThermalFoundationMats = Loader.isModLoaded("ThermalFoundation");
+    public static boolean aEnableEnderIOMats = Loader.isModLoaded("EnderIO");
+    public static boolean aEnableRailcraftMats = Loader.isModLoaded(GT_Values.MOD_ID_RC);
+    public static boolean aEnableGCMarsMats = Loader.isModLoaded("GalacticraftMars");
+    public static boolean aEnableTwilightMats = Loader.isModLoaded(GT_Values.MOD_ID_TF);
+    public static boolean aEnableMetallurgyMats = Loader.isModLoaded("Metallurgy");
+    public static boolean aEnableIHLMats = Loader.isModLoaded("ihl");
 
     public ProcessingModSupport() {
         Materials.add(this);
@@ -32,7 +32,7 @@ public class ProcessingModSupport implements gregtech.api.interfaces.IMaterialHa
             Materials.BasalticMineralSand.mHasParentMod = false;
             Materials.Borax.mHasParentMod = false;
             Materials.CassiteriteSand.mHasParentMod = false;
-            Materials.Chromite.mHasParentMod = false;
+            //Materials.Chromite.mHasParentMod = false;
             Materials.Chrysotile.mHasParentMod = false;
             Materials.Diatomite.mHasParentMod = false;
             Materials.FullersEarth.mHasParentMod = false;

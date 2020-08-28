@@ -28,6 +28,7 @@ import gregtech.common.gui.GT_GUIContainerVolumetricFlask;
 import gregtech.common.items.GT_MetaGenerated_Tool_01;
 import gregtech.common.items.armor.ModularArmor_Item;
 import gregtech.common.items.armor.gui.*;
+import gregtech.common.items.behaviors.Behaviour_ProspectorsBook;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -74,6 +75,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -215,7 +218,12 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
     public boolean gt6Cable = true;
     public boolean ic2EnergySourceCompat = true;
     public boolean costlyCableConnection = false;
+    public boolean mEasyEnderIOMaterialsRecipe = false;	
     public boolean mMoreComplicatedChemicalRecipes = false;
+    public boolean mHardRadonRecipe = true;
+    public boolean disassemblerRecipeMapOn = false;
+    public boolean enableFixQuestsCommand = false;
+
     
     public GT_Proxy() {
         GameRegistry.registerFuelHandler(this);
@@ -365,10 +373,6 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
         ItemList.IC2_ReBattery.set(GT_ModHandler.getIC2Item("reBattery", 1L));
         ItemList.IC2_AdvBattery.set(GT_ModHandler.getIC2Item("advBattery", 1L));
         ItemList.IC2_EnergyCrystal.set(GT_ModHandler.getIC2Item("energyCrystal", 1L));
-        ItemList.IC2_LapotronCrystal.set(GT_ModHandler.getIC2Item("lapotronCrystal", 1L));
-
-        ItemList.IC2_LapotronCrystal.set(GT_ModHandler.getIC2Item("lapotronCrystal", 1L));
-        ItemList.IC2_LapotronCrystal.set(GT_ModHandler.getIC2Item("lapotronCrystal", 1L));
         ItemList.IC2_LapotronCrystal.set(GT_ModHandler.getIC2Item("lapotronCrystal", 1L));
 
         ItemList.Tool_Sword_Bronze.set(GT_ModHandler.getIC2Item("bronzeSword", 1L));
@@ -1319,6 +1323,14 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
                         if (this.mInventoryUnification) {
                             GT_OreDictUnificator.setStack(true, tStack);
                         }
+                        if (GT_Utility.areStacksEqual(ItemList.ProspectorsBook.get(1), tStack, true)) {
+                            NBTTagCompound tNBT = tStack.getTagCompound();
+                            if(tNBT != null){
+                                if(!tNBT.getBoolean("inited")){
+                                    aEvent.player.inventory.setInventorySlotContents(i, Behaviour_ProspectorsBook.getBook(aEvent.player.worldObj,tNBT.getInteger("x"), tNBT.getInteger("y"), tNBT.getInteger("z"),new XSTR(aEvent.player.worldObj.getSeed())));
+                                }
+                            }
+                        }
                     }
                 }
                 for (int i = 0; i < 4; i++) {
@@ -1770,13 +1782,22 @@ public abstract class GT_Proxy implements IGT_Mod, IGuiHandler, IFuelHandler {
     }
 
     public void activateOreDictHandler() {
+        final Logger GT_FML_LOGGER = LogManager.getLogger("GregTech");
         this.mOreDictActivated = true;
         ProgressManager.ProgressBar progressBar = ProgressManager.push("Register materials", mEvents.size());
+        int sizeStep = mEvents.size()/20-1;
+        int size = 5;
         OreDictEventContainer tEvent;
         for (Iterator i$ = this.mEvents.iterator(); i$.hasNext(); registerRecipes(tEvent)) {
             tEvent = (OreDictEventContainer) i$.next();
-            
+            sizeStep--;
             progressBar.step(tEvent.mMaterial == null ? "" : tEvent.mMaterial.toString());
+            if( sizeStep == 0 )
+            {
+                GT_FML_LOGGER.info("Baking : " + size + "%", new Object[0]);
+                sizeStep = mEvents.size()/20-1;
+                size += 5;
+            }
         }
         ProgressManager.pop(progressBar);
     }

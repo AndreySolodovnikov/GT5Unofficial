@@ -421,6 +421,30 @@ public class GT_RecipeAdder
         return true;
     }
 
+    public boolean addOreWasherRecipe(ItemStack aInput, ItemStack aOutput1, ItemStack aOutput2, ItemStack aOutput3, FluidStack aFluidInput, FluidStack aFluidOutput, int aDuration, int aEUt) {
+        if ((aInput == null) || (aFluidInput == null) || ((aOutput1 == null) || (aOutput2 == null) || (aOutput3 == null))) {
+            return false;
+        }
+        if ((aDuration = GregTech_API.sRecipeFile.get("orewasher", aInput, aDuration)) <= 0) {
+            return false;
+        }
+        GT_Recipe.GT_Recipe_Map.sOreWasherRecipes.addRecipe(true, new ItemStack[]{aInput}, new ItemStack[]{aOutput1, aOutput2, aOutput3}, null, new FluidStack[]{aFluidInput},  new FluidStack[]{aFluidOutput}, aDuration, aEUt, 0);
+        return true;
+    }
+
+    public boolean addOreWasherRecipe(ItemStack aInput1 ,ItemStack aInput2, ItemStack aOutput1, ItemStack aOutput2, ItemStack aOutput3, FluidStack aFluidInput, FluidStack aFluidOutput, int aDuration, int aEUt) {
+        if ((aInput1 == null) || (aFluidInput == null) || ((aOutput1 == null))) {
+            return false;
+        }
+        if ((aDuration = GregTech_API.sRecipeFile.get("orewasher", aInput1, aDuration)) <= 0) {
+            return false;
+        }
+        GT_Recipe r = GT_Recipe.GT_Recipe_Map.sOreWasherRecipes.addRecipe(true, new ItemStack[]{aInput1, aInput2}, new ItemStack[]{aOutput1,aOutput2,aOutput3}, null, new FluidStack[]{aFluidInput},  new FluidStack[]{aFluidOutput}, aDuration, aEUt, 0);
+        if(r!=null)
+            r.mDistWaterUnificate = true;
+        return true;
+    }	
+	
     public boolean addImplosionRecipe(ItemStack aInput1, int aInput2, ItemStack aOutput1, ItemStack aOutput2) {
         if ((aInput1 == null) || (aOutput1 == null)) {
             return false;
@@ -478,6 +502,17 @@ public class GT_RecipeAdder
         return false;
     }
 
+    public boolean addVacuumFreezerRecipe(ItemStack aInput1, ItemStack aOutput1, int aDuration, int aEUt) {
+        if ((aInput1 == null) || (aOutput1 == null)) {
+            return false;
+        }
+        if ((aDuration = GregTech_API.sRecipeFile.get("vacuumfreezer", aInput1, aDuration)) <= 0) {
+            return false;
+        }
+        new GT_Recipe(aInput1, aOutput1, aDuration, aEUt, 0);//Since all other methods are taken
+        return true;
+    }	
+	
     public boolean addVacuumFreezerRecipe(ItemStack aInput1, ItemStack aOutput1, int aDuration) {
         if ((aInput1 == null) || (aOutput1 == null)) {
             return false;
@@ -775,6 +810,17 @@ public class GT_RecipeAdder
     	return addAutoclaveRecipe(aInput, aFluid, aOutput, aChance, aDuration, aEUt, false);
     }
 
+    public boolean addAutoclaveRecipe(ItemStack aInput1 ,ItemStack aInput2, FluidStack aFluid, ItemStack aOutput, FluidStack aFluidOutput, int aChance, int aDuration, int aEUt) {
+        if ((aInput1 == null) || (aFluid == null) || (aOutput == null)) {
+            return false;
+        }
+        if ((aDuration = GregTech_API.sRecipeFile.get("autoclave", aInput1, aDuration)) <= 0) {
+            return false;
+        }
+        GT_Recipe.GT_Recipe_Map.sAutoclaveRecipes.addRecipe(true, new ItemStack[]{aInput1, aInput2}, new ItemStack[]{aOutput}, null, new int[]{aChance}, new FluidStack[]{aFluid}, new FluidStack[]{aFluidOutput}, aDuration, aEUt,  0);
+        return true;
+    }
+
     public boolean addAutoclaveRecipe(ItemStack aInput, FluidStack aFluid, ItemStack aOutput, int aChance, int aDuration, int aEUt, boolean aCleanroom) {
         if ((aInput == null) || (aFluid == null) || (aOutput == null)) {
             return false;
@@ -790,6 +836,10 @@ public class GT_RecipeAdder
     }
 
     public boolean addMixerRecipe(ItemStack aInput1, ItemStack aInput2, ItemStack aInput3, ItemStack aInput4, FluidStack aFluidInput, FluidStack aFluidOutput, ItemStack aOutput, int aDuration, int aEUt) {
+        return addMixerRecipe(aInput1, aInput2, aInput3, aInput4,  null, null, aFluidInput, aFluidOutput, aOutput, aDuration, aEUt);
+    }
+
+    public boolean addMixerRecipe(ItemStack aInput1, ItemStack aInput2, ItemStack aInput3, ItemStack aInput4, ItemStack aInput5, ItemStack aInput6, FluidStack aFluidInput, FluidStack aFluidOutput, ItemStack aOutput, int aDuration, int aEUt) {
         if (((aInput1 == null) && (aFluidInput == null)) || ((aOutput == null) && (aFluidOutput == null))) {
             return false;
         }
@@ -799,7 +849,7 @@ public class GT_RecipeAdder
         if ((aFluidOutput != null) && ((aDuration = GregTech_API.sRecipeFile.get("mixer", aFluidOutput.getFluid().getName(), aDuration)) <= 0)) {
             return false;
         }
-        GT_Recipe.GT_Recipe_Map.sMixerRecipes.addRecipe(true, new ItemStack[]{aInput1, aInput2, aInput3, aInput4}, new ItemStack[]{aOutput}, null, null, new FluidStack[]{aFluidInput}, new FluidStack[]{aFluidOutput}, aDuration, aEUt, 0);
+        GT_Recipe.GT_Recipe_Map.sMixerRecipes.addRecipe(true, new ItemStack[]{aInput1, aInput2, aInput3, aInput4, aInput5, aInput6}, new ItemStack[]{aOutput}, null, null, new FluidStack[]{aFluidInput}, new FluidStack[]{aFluidOutput}, aDuration, aEUt, 0);
         return true;
     }
     
@@ -1084,6 +1134,24 @@ public class GT_RecipeAdder
         } 
         GT_Recipe.GT_Recipe_Map.sCircuitAssemblerRecipes.addRecipe(true, aInputs, new ItemStack[]{aOutput}, null, null, new FluidStack[]{aFluidInput}, null, aDuration, aEUt, 0);
 		return true;    
+	}
+
+	@Override
+    public boolean addDisassemblerRecipe(ItemStack aInput, ItemStack[] aOutputs, int aDuration, int aEUt) {
+        if (aInput == null) {
+            return false;
+        }
+        if (aOutputs == null || aOutputs.length == 0|| aOutputs[0] == null) {
+            return false;
+        }
+        GT_Recipe.GT_Recipe_Map.sDisassemblerRecipes.addRecipe(true, new ItemStack[]{aInput}, aOutputs, null, new FluidStack[0],new FluidStack[0], aDuration, aEUt, 0);
+        return true;
+    }
+
+    @Override
+    public boolean addFilterRecipe(FluidStack aInput, FluidStack aOutput, ItemStack[] aOutputs, int aDuration, int aEUt){
+	    GT_Recipe.GT_Recipe_Map.sFilterRecipes.addRecipe(true, null, aOutputs, null, new FluidStack[]{aInput}, new FluidStack[]{aOutput},aDuration,aEUt,0);
+        return true;
 	}
 
 	private boolean areItemsAndFluidsBothNull(ItemStack[] items, FluidStack[] fluids){

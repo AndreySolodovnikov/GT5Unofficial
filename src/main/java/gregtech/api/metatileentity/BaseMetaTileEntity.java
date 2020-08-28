@@ -472,11 +472,13 @@ public class BaseMetaTileEntity extends BaseTileEntity implements IGregTechTileE
                                        if((getStoredEU() + ic2.api.info.Info.itemEnergy.getEnergyValue(mMetaTileEntity.mInventory[i]))<getEUCapacity()){
                                            increaseStoredEnergyUnits((long)ic2.api.info.Info.itemEnergy.getEnergyValue(mMetaTileEntity.mInventory[i]),false);
                                            mMetaTileEntity.mInventory[i].stackSize--;
+					   mInventoryChanged = true;    
                                        }
                                     }
-                                    if (mMetaTileEntity.mInventory[i].stackSize <= 0)
+                                    if (mMetaTileEntity.mInventory[i].stackSize <= 0) {
                                         mMetaTileEntity.mInventory[i] = null;
-                                    mInventoryChanged = true;
+                                        mInventoryChanged = true;
+                                    }
                                 }
                             }
                         }
@@ -488,9 +490,10 @@ public class BaseMetaTileEntity extends BaseTileEntity implements IGregTechTileE
                             for (int i = mMetaTileEntity.rechargerSlotStartIndex(), k = mMetaTileEntity.rechargerSlotCount() + i; i < k; i++) {
                                 if (getStoredEU() > 0 && mMetaTileEntity.mInventory[i] != null) {
                                     chargeItem(mMetaTileEntity.mInventory[i]);
-                                    if (mMetaTileEntity.mInventory[i].stackSize <= 0)
+                                        if (mMetaTileEntity.mInventory[i].stackSize <= 0) {
                                         mMetaTileEntity.mInventory[i] = null;
-                                    mInventoryChanged = true;
+                                        mInventoryChanged = true;
+                                    }
                                 }
                             }
                         }
@@ -638,7 +641,10 @@ public class BaseMetaTileEntity extends BaseTileEntity implements IGregTechTileE
 
         if (hasValidMetaTileEntity()) {
             try {
-                mMetaTileEntity.receiveClientEvent((byte) aEventID, (byte) aValue);
+                if(aEventID>128)
+                    mMetaTileEntity.receiveExtendedBlockEvent(aEventID,aValue);
+                else
+                    mMetaTileEntity.receiveClientEvent((byte) aEventID, (byte) aValue);
             } catch (Throwable e) {
                 GT_Log.err.println("Encountered Exception while receiving Data from the Server, the Client should've been crashed by now, but I prevented that. Please report immidietly to GregTech Intergalactical!!!");
                 e.printStackTrace(GT_Log.err);
@@ -1074,8 +1080,8 @@ public class BaseMetaTileEntity extends BaseTileEntity implements IGregTechTileE
 
     @Override
     public ITexture[] getTexture(Block aBlock, byte aSide) {
-        ITexture rIcon = getCoverTexture(aSide);
-        if (rIcon != null) return new ITexture[]{rIcon};
+        if(getCoverIDAtSide(aSide)!=0)
+            return new ITexture[]{getCoverTexture(aSide)};
         if (hasValidMetaTileEntity())
             return mMetaTileEntity.getTexture(this, aSide, mFacing, (byte) (mColor - 1), mActive, getOutputRedstoneSignal(aSide) > 0);
         return Textures.BlockIcons.ERROR_RENDERING;

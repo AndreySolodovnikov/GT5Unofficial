@@ -387,6 +387,8 @@ public interface IGT_RecipeAdder {
      * @return
      */
     public boolean addOreWasherRecipe(ItemStack aInput, ItemStack aOutput1, ItemStack aOutput2, ItemStack aOutput3, FluidStack aFluidInput, int aDuration, int aEUt);
+    public boolean addOreWasherRecipe(ItemStack aInput, ItemStack aOutput1, ItemStack aOutput2, ItemStack aOutput3, FluidStack aFluidInput, FluidStack aFluidOutput, int aDuration, int aEUt);
+    public boolean addOreWasherRecipe(ItemStack aInput1, ItemStack aInput2, ItemStack aOutput1, ItemStack aOutput2, ItemStack aOutput3, FluidStack aFluidInput, FluidStack aFluidOutput, int aDuration, int aEUt);
 
     /**
      * Adds an Implosion Compressor Recipe
@@ -473,8 +475,11 @@ public interface IGT_RecipeAdder {
      * @param aInput1   must be != null
      * @param aOutput1  must be != null
      * @param aDuration must be > 0
+     * @param aEUt must be > 0
      */
     public boolean addVacuumFreezerRecipe(ItemStack aInput1, ItemStack aOutput1, int aDuration);
+	
+    public boolean addVacuumFreezerRecipe(ItemStack aInput1, ItemStack aOutput1, int aDuration, int aEUt);	
 
     /**
      * Adds a Fuel for My Generators
@@ -566,6 +571,7 @@ public interface IGT_RecipeAdder {
      * Adds a Recipe for the Autoclave
      */
     public boolean addAutoclaveRecipe(ItemStack aInput, FluidStack aFluid, ItemStack aOutput, int aChance, int aDuration, int aEUt);
+    public boolean addAutoclaveRecipe(ItemStack aInput1,ItemStack aInput2, FluidStack aInputFluid, ItemStack aOutput, FluidStack aOutputFluid, int aChance, int aDuration, int aEUt);
 
     /**
      * Adds a Recipe for the Autoclave
@@ -576,6 +582,7 @@ public interface IGT_RecipeAdder {
      * Adds a Recipe for the Mixer
      */
     public boolean addMixerRecipe(ItemStack aInput1, ItemStack aInput2, ItemStack aInput3, ItemStack aInput4, FluidStack aFluidInput, FluidStack aFluidOutput, ItemStack aOutput, int aDuration, int aEUt);
+    public boolean addMixerRecipe(ItemStack aInput1, ItemStack aInput2, ItemStack aInput3, ItemStack aInput4, ItemStack aInput5, ItemStack aInput6, FluidStack aFluidInput, FluidStack aFluidOutput, ItemStack aOutput, int aDuration, int aEUt);
 
     /**
      * Adds a Recipe for the Laser Engraver
@@ -661,6 +668,11 @@ public interface IGT_RecipeAdder {
      * @param aEUt
      */
     public boolean addCrackingRecipe(int circuitConfig, FluidStack aInput, FluidStack aInput2, FluidStack aOutput, int aDuration, int aEUt);
+
+
+    public boolean addDisassemblerRecipe(ItemStack aInput, ItemStack[] aOutputs, int aDuration, int aEUt);
+
+    public boolean addFilterRecipe(FluidStack aInput, FluidStack aOutput, ItemStack[] aOutputs, int aDuration, int aEUt);
 
     /**
      * Adds a Sound to the Sonictron9001
